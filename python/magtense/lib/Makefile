@@ -15,6 +15,9 @@ else
 	endif
 endif
 
+F90 = gfortran
+F2PY = f2py-3.10
+
 ifeq (${F90}, gfortran)
 	USE_CUDA = 0
 	USE_MKL = 0
@@ -181,5 +184,5 @@ ${STATIC_LIB}: ${LIBSRC_OBJECTS} ${CUDA_OBJECT} ${CUDA_WRAP}
 	${LIBTOOL}
 
 ${PYTHON_MODN_ALL}: ${STATIC_LIB}
-	f2py --build-dir . --fcompiler=${FCOMP} ${EXTRA_OPT} -c -m ${PYTHON_MODN} \
+	$(F2PY) --build-dir . --fcompiler=${FCOMP} ${EXTRA_OPT} -c -m ${PYTHON_MODN} \
 	${LIB_OPT} ${LIBSRC_WRAP_FILES} ${LIBSRC_OBJECTS} $(MKL) $(CUDA)

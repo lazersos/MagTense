@@ -2,10 +2,18 @@
 #LINK = /apps/external/intel/2019/compilers_and_libraries_2019.4.243/linux/bin/intel64/xiar rc
 #FC = /apps/external/intel/2019/compilers_and_libraries_2019.4.243/linux/bin/intel64/ifort
 #FFLAGS ?= -r8 -O3 -fpp -fpe0 -fp-model source -fpic -libs:static
+#F90 = $(FC)
+#CC = gcc
+#CFLAGS = -fPIC
+#CU = nvcc
 
 # For GNU Compilers
 LINK = ar -cruv 
 FC = /opt/local/bin/gfortran
+#F90 = $(FC)
+#CC = /opt/local/bin/gcc
+#CFLAGS = -fPIC
+#CU = nvcc
 FFLAGS = -cpp -O3 -fopenmp -fdefault-real-8 -fdefault-double-8  -ffixed-line-length-none -ffree-line-length-none -fPIC -fallow-argument-mismatch
 
 # Matlab (system dependent)

@@ -691,7 +691,9 @@ def validation(
     mu0 = 4 * np.pi * 1e-7
     prefix = 'py_' if 'spher' in shape else ''
     suffix = '_prolate' if shape == 'spheroid' else ''
-    COMSOL_eval_path = Path(__file__).parent.absolute() / '..' / '..' / '..' / \
+#    COMSOL_eval_path = Path(__file__).parent.absolute() / '..' / '..' / '..' / \
+#        'documentation' / 'examples_FEM_validation' / f'Validation_{shape}'
+    COMSOL_eval_path = Path(__file__).parent.absolute() / '..' / '..' / \
         'documentation' / 'examples_FEM_validation' / f'Validation_{shape}'
 
     fig, ax = plt.subplots(1,3)

@@ -1,17 +1,7 @@
 
-FC = /apps/external/intel/2019/compilers_and_libraries_2019.4.243/linux/bin/intel64/ifort
+include ../../../make.inc
 
-
-FFLAGS = -r8 -O3 -fpp -fpe0 -fp-model source -fpic -static-intel -libs:static -I../../NumericalIntegration/NumericalIntegration/ \
-	-I../../TileDemagTensor/TileDemagTensor/ -I/apps/external/matlab/2019/b/extern/include/ 
-
-
-#FC = /usr/bin/gfortran
-
-#FFLAGS = -O3 -fpp -fopenmp -fdefault-real-8 -ffixed-line-length-none -fPIC
-
-
-
+FFLAGS += -I$(NumIntLib) -I$(TileDemagTensorLib) -I$(MATLABROOT)/extern/include
 
 .KEEP_STATE:
 .SUFFIXES:
@@ -28,7 +18,7 @@ FFLAGS = -r8 -O3 -fpp -fpe0 -fp-model source -fpic -static-intel -libs:static -I
 DemagFieldLib = $(FC) DemagFieldGetSolution.o MagParameters.o MagTileIO.o spline.o IterateMagnetSolution.o
 
 libDemagField.a: $(DemagFieldLib)
-	/apps/external/intel/2019/compilers_and_libraries_2019.4.243/linux/bin/intel64/xiar rc libDemagField.a DemagFieldGetSolution.o MagParameters.o MagTileIO.o  spline.o IterateMagnetSolution.o
+	$(LINK) libDemagField.a DemagFieldGetSolution.o MagParameters.o MagTileIO.o  spline.o IterateMagnetSolution.o
 
 
 clean:

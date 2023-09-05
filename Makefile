@@ -1,16 +1,19 @@
 
-FC = /apps/external/intel/2019/compilers_and_libraries_2019.4.243/linux/bin/intel64/ifort
+#FC = /apps/external/intel/2019/compilers_and_libraries_2019.4.243/linux/bin/intel64/ifort
 
 
-FFLAGS = -r8 -O3 -fpe0 -fp-model source -fpic -I../../NumericalIntegration/NumericalIntegration/ \
+#FFLAGS = -r8 -O3 -fpe0 -fp-model source -fpic -I../../NumericalIntegration/NumericalIntegration/ \
 
 
 #FC = /usr/bin/gfortran
 
 #FFLAGS = -O3 -fopenmp -fdefault-real-8 -ffixed-line-length-none -fPIC
 
+# MACPORTS MPI
+#FC = mpif90
+#FFLAGS = -O2 -fdefault-real-8 -ffixed-line-lingth-none -fPIC
 
-
+include make.inc
 
 .KEEP_STATE:
 .SUFFIXES:

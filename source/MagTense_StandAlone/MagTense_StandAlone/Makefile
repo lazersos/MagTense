@@ -1,20 +1,15 @@
 
-FC = /apps/external/intel/2019/compilers_and_libraries_2019.4.243/linux/bin/intel64/ifort
+include ../../../make.inc
 
 NumIntLib = ../../NumericalIntegration/NumericalIntegration/
 TileDemagTensorLib = ../../TileDemagTensor/TileDemagTensor/
 DemagFieldLib = ../../DemagField/DemagField/
 
+LIB_NumIntLib = $(NumIntLib)libNumericalIntegration.a
+LIB_TileDemagTensorLib = $(TileDemagTensorLib)libTileDemagTensor.a
+LIB_DemagFieldLib = $(DemagFieldLib)libDemagField.a
 
-FFLAGS = -r8 -O3 -fpe0 -fp-model source -fpic -I$(NumIntLib) -I$(TileDemagTensorLib) -I$(DemagFieldLib)
-
-
-#FC = /usr/bin/gfortran
-
-#FFLAGS = -O3 -fopenmp -fdefault-real-8 -ffixed-line-length-none -fPIC
-
-
-
+FFLAGS += -I$(NumIntLib) -I$(TileDemagTensorLib) -I$(DemagFieldLib)
 
 .KEEP_STATE:
 .SUFFIXES:
@@ -31,9 +26,11 @@ FFLAGS = -r8 -O3 -fpe0 -fp-model source -fpic -I$(NumIntLib) -I$(TileDemagTensor
 MagTense.x = StandAloneIO.o MagTense_StandAlone.o
 
 MagTense.x: $(MagTense.x)
-	$(FC) $(FFLAGS) $(MagTense.x) -Wl,--start-group $(NumIntLib)libNumericalIntegration.a \
-	$(TileDemagTensorLib)libTileDemagTensor.a $(DemagFieldLib)libDemagField.a \
-	 -Wl,--end-group -o MagTense.x
+	$(FC) -o MagTense.x $(MagTense.x) $(LIB_NumIntLib) $(LIB_DemagFieldLib) $(LIB_TileDemagTensorLib) $(LIB_DemagFieldLib) $(FFLAGS)
+
+#
+#
+#
 
 
 clean:

@@ -1,16 +1,5 @@
 
-FC = /apps/external/intel/2019/compilers_and_libraries_2019.4.243/linux/bin/intel64/ifort
-
-
-FFLAGS = -r8 -O3 -fpp -fpe0 -fp-model source -fpic -libs:static
-
-
-#FC = /usr/bin/gfortran
-
-#FFLAGS = -O3 -fopenmp -fdefault-real-8 -ffixed-line-length-none -fPIC
-
-
-
+include ../../../make.inc
 
 .KEEP_STATE:
 .SUFFIXES:
@@ -24,10 +13,10 @@ FFLAGS = -r8 -O3 -fpp -fpe0 -fp-model source -fpic -libs:static
 .for.o:
 	$(FC) -c $(FFLAGS) $<
 
-NumericalIntegrationLib = $(FC) IntegrationDataTypes.o quadpack.o NumericalIntegrals.o ODE_Solvers.o ODE_MagTense.o RKSuitef90.o util.o locate.o
+NumericalIntegrationLib = $(FC) IntegrationDataTypes.o quadpack.o NumericalIntegrals.o ODE_Solvers.o ODE_MagTense.o RKSuitef90.o util.o locate.o IOgeneral.o
 
 libNumericalIntegration.a: $(NumericalIntegrationLib)
-	/apps/external/intel/2019/compilers_and_libraries_2019.4.243/linux/bin/intel64/xiar rc libNumericalIntegration.a IntegrationDataTypes.o quadpack.o NumericalIntegrals.o ODE_Solvers.o ODE_MagTense.o RKSuitef90.o util.o locate.o
+	$(LINK) libNumericalIntegration.a IntegrationDataTypes.o quadpack.o NumericalIntegrals.o ODE_Solvers.o ODE_MagTense.o RKSuitef90.o util.o locate.o IOgeneral.o SpecialFunctions.o
 
 
 clean:
@@ -38,6 +27,6 @@ quadpack.o	:quadpack.f90 IntegrationDataTypes.o
 IntegrationDataTypes.o	:IntegrationDataTypes.f90 
 NumericalIntegrals.o	:NumericalIntegrals.f90 quadpack.o IntegrationDataTypes.o
 RKSuitef90.o	:RKSuitef90.f90
-ODE_Solvers.o	:ODE_Solvers.f90 RKSuitef90.o
+ODE_Solvers.o	:ODE_Solvers.f90 RKSuitef90.o SpecialFunctions.o
 util.o	:util.f90
 locate.o :locate.for
